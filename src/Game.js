@@ -14,9 +14,9 @@ const Boomerang = require('./game-models/Boomerang');
 class Game {
   constructor(trackLength) {
     this.trackLength = trackLength;
-    this.hero = new Hero(); // Герою можно аргументом передать бумеранг.
-    this.enemy = new Enemy();
-    this.boomerang = null;
+    this.hero = new Hero(0); // Герою можно аргументом передать бумеранг.
+    this.enemy = new Enemy(15);
+    this.boomerang = new Boomerang(this.hero.position + 1);
     this.view = new View();
     this.track = [];
     this.regenerateTrack();
@@ -29,7 +29,7 @@ class Game {
     this.track[this.hero.position] = this.hero.skin;
     this.track[this.enemy.position] = this.enemy.skin;
     if (this.boomerang) {
-      this.boomerang.position = this.boomerang.skin;
+      this.track[this.boomerang.position] = this.boomerang.skin;
     }
   }
 
@@ -51,7 +51,7 @@ class Game {
         this.boomerang.fly();
       }
       this.view.render(this.track);
-    }, 1000);
+    }, 500);
   }
 
   attack() {

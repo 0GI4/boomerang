@@ -29,10 +29,23 @@ function gg(ch, key) {
     }
   }
 }
-game.play();
 
+function moveEnemyTowardsHero() {
+  const heroPosition = game.hero.position;
+  const enemyPosition = game.enemy.position;
+
+  if (heroPosition < enemyPosition) {
+    game.enemy.moveLeft();
+  } else if (heroPosition === enemyPosition) {
+    game.hero.die();
+  }
+}
+
+game.play();
 
 keypress(process.stdin);
 process.stdin.on('keypress', gg);
 process.stdin.setRawMode(true);
 process.stdin.resume();
+
+setInterval(moveEnemyTowardsHero, 500);
