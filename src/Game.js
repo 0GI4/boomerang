@@ -12,7 +12,6 @@ const Boomerang = require('./game-models/Boomerang');
 // Тут будут все настройки, проверки, запуск.
 
 class Game {
-  constructor(trackLength) {
     this.trackLength = trackLength;
     this.hero = new Hero(0); // Герою можно аргументом передать бумеранг.
     this.enemy = new Enemy(15);

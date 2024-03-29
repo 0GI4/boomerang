@@ -2,12 +2,16 @@
 // Запускает игру.
 const keypress = require('keypress');
 const Game = require('./src/Game');
+const readline = require('readline');
+const Boomerang = require('./src/game-models/Boomerang');
+const Enemy = require('./src/game-models/Enemy');
+const Hero = require('./src/game-models/Hero');
 
 // Инициализация игры с настройками.
-const game = new Game({
-  trackLength: 30,
+const rl = readline.createInterface({
+  input: process.stdin,
+  output: process.stdout,
 });
-
 function moveBoomerangTowardsEnemy() {
   const boomerangPosition = game.boomerang.position;
   const enemyPosition = game.enemy.position;
