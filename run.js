@@ -12,8 +12,25 @@ const rl = readline.createInterface({
   input: process.stdin,
   output: process.stdout,
 });
+function moveBoomerangTowardsEnemy() {
+  const boomerangPosition = game.boomerang.position;
+  const enemyPosition = game.enemy.position;
+
+  if (boomerangPosition < enemyPosition) {
+    game.boomerang.moveRight();
+  } else if (boomerangPosition > enemyPosition) {
+    game.boomerang.moveLeft();
+  } else if (boomerangPosition === enemyPosition) {
+    game.enemy.skin = ' ';
+    game.enemy.die();
+    // while (boomerangPosition !== game.hero.position) {
+    //   game.boomerang.moveLeft();
+    // }
+  }
+}
+
 // Запуск игры.
-function gg(ch, key) {
+async function gg(ch, key) {
   if (key && key.name) {
     switch (key.name) {
       case 'a':
@@ -24,6 +41,8 @@ function gg(ch, key) {
         break;
       case 'space':
         game.attack();
+        moveBoomerangTowardsEnemy();
+        await setInterval(moveBoomerangTowardsEnemy, 100);
         break;
       case 'c':
         process.exit();
@@ -41,7 +60,7 @@ function moveEnemyTowardsHero() {
   if (heroPosition < enemyPosition) {
     game.enemy.moveLeft();
   } else if (heroPosition === enemyPosition) {
-    game.hero.die();
+    game.enemy.remove();
   }
 }
 
@@ -52,4 +71,21 @@ process.stdin.on('keypress', gg);
 process.stdin.setRawMode(true);
 process.stdin.resume();
 
-setInterval(moveEnemyTowardsHero, 500);
+setInterval(moveEnemyTowardsHero, 1000);
+
+// function moveBoomerangTowardsEnemy() {
+//   const boomerangPosition = game.boomerang.position;
+//   const enemyPosition = game.enemy.position;
+
+//   if (boomerangPosition < enemyPosition) {
+//     game.boomerang.moveRight();
+//   } else if (boomerangPosition > enemyPosition) {
+//     game.boomerang.moveLeft();
+//   } else if (boomerangPosition === enemyPosition) {
+//     game.enemy.die();
+//     game.enemy.skin = '';
+//     process.exit();
+//   }
+// }
+
+// setInterval(moveBoomerangTowardsEnemy, 200);
