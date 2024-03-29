@@ -11,7 +11,7 @@ const View = require('./View');
 // Тут будут все настройки, проверки, запуск.
 
 class Game {
-  constructor({ trackLength }) {
+  constructor( trackLength ) {
     this.trackLength = trackLength;
     this.hero = new Hero(); // Герою можно аргументом передать бумеранг.
     this.enemy = new Enemy();
